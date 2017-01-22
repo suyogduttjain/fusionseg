@@ -1,0 +1,3 @@
+for i=400:4:1000
+    show_optical_flow(i)
+end
