@@ -33,19 +33,19 @@ This model is trained using Deeplab-v2 caffe library. Please cite [1] and [2] if
  - Download and install Deeplab-v2 from [here](https://bitbucket.org/aquariusjay/deeplab-public-ver2)
  - Download pretrained models using appearance/download_model.sh and motion/download_model.sh
  - Or Direct downlowd from here:
-  - [Appearance stream] (http://vision.cs.utexas.edu/projects/fusionseg/models/appearance_stream.caffemodel)
-  - [Motion stream] (http://vision.cs.utexas.edu/projects/fusionseg/models/motion_stream.caffemodel)
+   - [Appearance stream] (http://vision.cs.utexas.edu/projects/fusionseg/models/appearance_stream.caffemodel)
+    - [Motion stream] (http://vision.cs.utexas.edu/projects/fusionseg/models/motion_stream.caffemodel)
 
 - Set the caffe binary path in demo.py correctly.
 
 - Refer to demo.py for step-by-step instruction on how to run the code.
-  - Command: python demo.py <model_type> <image_extension> [See below for examples]  
+  - Command: python demo.py \<model_type\> \<image_extension\> [See below for examples]  
   - Running demo.py will produce three files:
-    - <model_type>_input_list.txt : contains list of of input images
-    - <model_type>_output_list.txt: contains names to be used to store the output of video segementation
-    - <model_type>_test.protoxt: prototxt file required for loading the pretrained model.
+    - \<model_type\>_input_list.txt : contains list of of input images
+    - \<model_type\>_output_list.txt: contains names to be used to store the output of video segementation
+    - \<model_type\>_test.protoxt: prototxt file required for loading the pretrained model.
 
-- Please resize your images so that the maximum side is < 513, otherwise update the crop_size value in appearnace/appearance_stream_template.prototxt and motion/motion_stream_template.prototxt. Bigger crop sizes require larger gpu memory. If GPU runs out of memory, try with smaller image dimensions. With maximum side <=321 it should run on a basic modern GPU.
+- Please resize your images so that the maximum side is < 513, otherwise update the crop_size value in appearance/appearance_stream_template.prototxt and motion/motion_stream_template.prototxt. Bigger crop sizes require larger gpu memory. If GPU runs out of memory, try with smaller image dimensions. With maximum side <=321 it should run on a basic modern GPU.
 
 - Running the appearance stream model:
   - Appearance stream model is stored under the "appearance" folder.
