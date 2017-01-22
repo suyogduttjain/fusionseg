@@ -41,7 +41,7 @@ This model is trained using Deeplab-v2 caffe library. Please cite [1] and [2] if
 - Refer to demo.py for step-by-step instruction on how to run the code.
   - Command: python demo.py \<model_type\> \<image_extension\> [See below for examples]  
   - Running demo.py will produce three files:
-    - \<model_type\>_input_list.txt : contains list of of input images
+    - \<model_type\>_image_list.txt : contains list of of input images
     - \<model_type\>_output_list.txt: contains names to be used to store the output of video segementation
     - \<model_type\>_test.protoxt: prototxt file required for loading the pretrained model.
 
