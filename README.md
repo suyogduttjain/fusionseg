@@ -24,6 +24,7 @@ Year = {2017}
 }
 ```
 
+These models are free for research and academic purposes. However its patent pending so please contact us for any commercial use.
 
 ## Using the pretrained models:
 
