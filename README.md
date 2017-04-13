@@ -18,7 +18,7 @@ If you use this in your research, please cite the following papers:
 ```sh
 @article{fusionseg,
 Author = {Jain, Suyog and Xiong, Bo and Grauman, Kristen},
-Journal = {arXiv preprint arXiv:1701.05384},
+Journal = {CVPR},
 Title = {FusionSeg: Learning to combine motion and appearance for fully automatic segmention of generic objects in videos},
 Year = {2017}
 }
