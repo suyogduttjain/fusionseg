@@ -1,0 +1,143 @@
+#input: "data"
+#input_shape {
+#  dim: 1
+#  dim: 4
+#  dim: 227
+#  dim: 227
+#}
+
+#layer {
+#    type: "Input"
+#    name: "InputLayer"
+#    top: "app_data"
+#    input_shape { dim: 1 dim: 2 dim: 227 dim: 227 }
+#    top: "mot_data"
+#    input_shape { dim: 1 dim: 2 dim: 227 dim: 227 }
+#}
+
+input: "app_data"
+input_shape {
+  dim: 1
+  dim: 2
+  dim: 227
+  dim: 227
+}
+
+input: "mot_data"
+input_shape {
+  dim: 1
+  dim: 2
+  dim: 227
+  dim: 227
+}
+
+layer {
+  name: "data"
+  type: "Concat"
+  bottom: "app_data"
+  bottom: "mot_data"
+  top: "data"
+  concat_param {
+    axis: 1
+  }
+}
+
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 10.0
+  }
+  param {
+    lr_mult: 20.0
+  }
+  convolution_param {
+    num_output: 4
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "conv1_relu"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "conva"
+  type: "Convolution"
+  bottom: "app_data"
+  top: "conva"
+  param {
+    lr_mult: 10.0
+  }
+  param {
+    lr_mult: 20.0
+  }
+  convolution_param {
+    num_output: 4
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "conva_relu"
+  type: "ReLU"
+  bottom: "conva"
+  top: "conva"
+}
+layer {
+  name: "convm"
+  type: "Convolution"
+  bottom: "mot_data"
+  top: "convm"
+  param {
+    lr_mult: 10.0
+  }
+  param {
+    lr_mult: 20.0
+  }
+  convolution_param {
+    num_output: 4
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "convm_relu"
+  type: "ReLU"
+  bottom: "convm"
+  top: "convm"
+}
+layer {
+  name: "conv_sum"
+  type: "Eltwise"
+  bottom: "conv1"
+  bottom: "conva"
+  bottom: "convm"
+  top: "conv_sum"
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "conv_sum"
+  top: "conv2"
+  param {
+    lr_mult: 10.0
+  }
+  param {
+    lr_mult: 20.0
+  }
+  convolution_param {
+    num_output: 2
+    pad: 1
+    kernel_size: 3
+    stride: 1
+}
+}
+

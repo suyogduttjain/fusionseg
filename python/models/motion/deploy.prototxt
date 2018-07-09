@@ -1,0 +1,7247 @@
+name: "resnet_motion"
+
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 227
+  dim: 227
+}
+
+layer {
+name: "conv1_motion"
+type: "Convolution"
+bottom: "data"
+top: "conv1_motion"
+param {
+  name: "conv1_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 64
+  bias_term: false
+  pad: 3
+  kernel_size: 7
+  stride: 2
+}
+}
+
+layer {
+name: "bn_conv1_motion"
+type: "BatchNorm"
+bottom: "conv1_motion"
+top: "conv1_motion"
+param {
+  name: "bn_conv1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn_conv1_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn_conv1_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale_conv1_motion"
+type: "Scale"
+bottom: "conv1_motion"
+top: "conv1_motion"
+param {
+  name: "scale_conv1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale_conv1_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "conv1_relu_motion"
+type: "ReLU"
+bottom: "conv1_motion"
+top: "conv1_motion"
+}
+
+layer {
+name: "pool1_motion"
+type: "Pooling"
+bottom: "conv1_motion"
+top: "pool1_motion"
+pooling_param {
+  pool: MAX
+  kernel_size: 3
+  stride: 2
+  pad: 1
+}
+}
+
+layer {
+name: "res2a_branch1_motion"
+type: "Convolution"
+bottom: "pool1_motion"
+top: "res2a_branch1_motion"
+param {
+  name: "res2a_branch1_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn2a_branch1_motion"
+type: "BatchNorm"
+bottom: "res2a_branch1_motion"
+top: "res2a_branch1_motion"
+param {
+  name: "bn2a_branch1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2a_branch1_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2a_branch1_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2a_branch1_motion"
+type: "Scale"
+bottom: "res2a_branch1_motion"
+top: "res2a_branch1_motion"
+param {
+  name: "scale2a_branch1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2a_branch1_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2a_branch2a_motion"
+type: "Convolution"
+bottom: "pool1_motion"
+top: "res2a_branch2a_motion"
+param {
+  name: "res2a_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 64
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn2a_branch2a_motion"
+type: "BatchNorm"
+bottom: "res2a_branch2a_motion"
+top: "res2a_branch2a_motion"
+param {
+  name: "bn2a_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2a_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2a_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2a_branch2a_motion"
+type: "Scale"
+bottom: "res2a_branch2a_motion"
+top: "res2a_branch2a_motion"
+param {
+  name: "scale2a_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2a_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2a_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res2a_branch2a_motion"
+top: "res2a_branch2a_motion"
+}
+
+layer {
+name: "res2a_branch2b_motion"
+type: "Convolution"
+bottom: "res2a_branch2a_motion"
+top: "res2a_branch2b_motion"
+param {
+  name: "res2a_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 64
+  bias_term: false
+  pad: 1
+  kernel_size: 3
+  stride: 1
+}
+}
+
+layer {
+name: "bn2a_branch2b_motion"
+type: "BatchNorm"
+bottom: "res2a_branch2b_motion"
+top: "res2a_branch2b_motion"
+param {
+  name: "bn2a_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2a_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2a_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2a_branch2b_motion"
+type: "Scale"
+bottom: "res2a_branch2b_motion"
+top: "res2a_branch2b_motion"
+param {
+  name: "scale2a_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2a_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2a_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res2a_branch2b_motion"
+top: "res2a_branch2b_motion"
+}
+
+layer {
+name: "res2a_branch2c_motion"
+type: "Convolution"
+bottom: "res2a_branch2b_motion"
+top: "res2a_branch2c_motion"
+param {
+  name: "res2a_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn2a_branch2c_motion"
+type: "BatchNorm"
+bottom: "res2a_branch2c_motion"
+top: "res2a_branch2c_motion"
+param {
+  name: "bn2a_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2a_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2a_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2a_branch2c_motion"
+type: "Scale"
+bottom: "res2a_branch2c_motion"
+top: "res2a_branch2c_motion"
+param {
+  name: "scale2a_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2a_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2a_motion"
+type: "Eltwise"
+bottom: "res2a_branch1_motion"
+bottom: "res2a_branch2c_motion"
+top: "res2a_motion"
+}
+
+layer {
+name: "res2a_relu_motion"
+type: "ReLU"
+bottom: "res2a_motion"
+top: "res2a_motion"
+}
+
+layer {
+name: "res2b_branch2a_motion"
+type: "Convolution"
+bottom: "res2a_motion"
+top: "res2b_branch2a_motion"
+param {
+  name: "res2b_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 64
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn2b_branch2a_motion"
+type: "BatchNorm"
+bottom: "res2b_branch2a_motion"
+top: "res2b_branch2a_motion"
+param {
+  name: "bn2b_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2b_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2b_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2b_branch2a_motion"
+type: "Scale"
+bottom: "res2b_branch2a_motion"
+top: "res2b_branch2a_motion"
+param {
+  name: "scale2b_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2b_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2b_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res2b_branch2a_motion"
+top: "res2b_branch2a_motion"
+}
+
+layer {
+name: "res2b_branch2b_motion"
+type: "Convolution"
+bottom: "res2b_branch2a_motion"
+top: "res2b_branch2b_motion"
+param {
+  name: "res2b_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 64
+  bias_term: false
+  pad: 1
+  kernel_size: 3
+  stride: 1
+}
+}
+
+layer {
+name: "bn2b_branch2b_motion"
+type: "BatchNorm"
+bottom: "res2b_branch2b_motion"
+top: "res2b_branch2b_motion"
+param {
+  name: "bn2b_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2b_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2b_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2b_branch2b_motion"
+type: "Scale"
+bottom: "res2b_branch2b_motion"
+top: "res2b_branch2b_motion"
+param {
+  name: "scale2b_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2b_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2b_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res2b_branch2b_motion"
+top: "res2b_branch2b_motion"
+}
+
+layer {
+name: "res2b_branch2c_motion"
+type: "Convolution"
+bottom: "res2b_branch2b_motion"
+top: "res2b_branch2c_motion"
+param {
+  name: "res2b_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn2b_branch2c_motion"
+type: "BatchNorm"
+bottom: "res2b_branch2c_motion"
+top: "res2b_branch2c_motion"
+param {
+  name: "bn2b_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2b_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2b_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2b_branch2c_motion"
+type: "Scale"
+bottom: "res2b_branch2c_motion"
+top: "res2b_branch2c_motion"
+param {
+  name: "scale2b_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2b_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2b_motion"
+type: "Eltwise"
+bottom: "res2a_motion"
+bottom: "res2b_branch2c_motion"
+top: "res2b_motion"
+}
+
+layer {
+name: "res2b_relu_motion"
+type: "ReLU"
+bottom: "res2b_motion"
+top: "res2b_motion"
+}
+
+layer {
+name: "res2c_branch2a_motion"
+type: "Convolution"
+bottom: "res2b_motion"
+top: "res2c_branch2a_motion"
+param {
+  name: "res2c_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 64
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn2c_branch2a_motion"
+type: "BatchNorm"
+bottom: "res2c_branch2a_motion"
+top: "res2c_branch2a_motion"
+param {
+  name: "bn2c_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2c_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2c_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2c_branch2a_motion"
+type: "Scale"
+bottom: "res2c_branch2a_motion"
+top: "res2c_branch2a_motion"
+param {
+  name: "scale2c_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2c_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2c_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res2c_branch2a_motion"
+top: "res2c_branch2a_motion"
+}
+
+layer {
+name: "res2c_branch2b_motion"
+type: "Convolution"
+bottom: "res2c_branch2a_motion"
+top: "res2c_branch2b_motion"
+param {
+  name: "res2c_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 64
+  bias_term: false
+  pad: 1
+  kernel_size: 3
+  stride: 1
+}
+}
+
+layer {
+name: "bn2c_branch2b_motion"
+type: "BatchNorm"
+bottom: "res2c_branch2b_motion"
+top: "res2c_branch2b_motion"
+param {
+  name: "bn2c_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2c_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2c_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2c_branch2b_motion"
+type: "Scale"
+bottom: "res2c_branch2b_motion"
+top: "res2c_branch2b_motion"
+param {
+  name: "scale2c_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2c_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2c_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res2c_branch2b_motion"
+top: "res2c_branch2b_motion"
+}
+
+layer {
+name: "res2c_branch2c_motion"
+type: "Convolution"
+bottom: "res2c_branch2b_motion"
+top: "res2c_branch2c_motion"
+param {
+  name: "res2c_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn2c_branch2c_motion"
+type: "BatchNorm"
+bottom: "res2c_branch2c_motion"
+top: "res2c_branch2c_motion"
+param {
+  name: "bn2c_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2c_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn2c_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale2c_branch2c_motion"
+type: "Scale"
+bottom: "res2c_branch2c_motion"
+top: "res2c_branch2c_motion"
+param {
+  name: "scale2c_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale2c_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res2c_motion"
+type: "Eltwise"
+bottom: "res2b_motion"
+bottom: "res2c_branch2c_motion"
+top: "res2c_motion"
+}
+
+layer {
+name: "res2c_relu_motion"
+type: "ReLU"
+bottom: "res2c_motion"
+top: "res2c_motion"
+}
+
+layer {
+name: "res3a_branch1_motion"
+type: "Convolution"
+bottom: "res2c_motion"
+top: "res3a_branch1_motion"
+param {
+  name: "res3a_branch1_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 2
+}
+}
+
+layer {
+name: "bn3a_branch1_motion"
+type: "BatchNorm"
+bottom: "res3a_branch1_motion"
+top: "res3a_branch1_motion"
+param {
+  name: "bn3a_branch1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3a_branch1_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3a_branch1_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3a_branch1_motion"
+type: "Scale"
+bottom: "res3a_branch1_motion"
+top: "res3a_branch1_motion"
+param {
+  name: "scale3a_branch1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3a_branch1_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3a_branch2a_motion"
+type: "Convolution"
+bottom: "res2c_motion"
+top: "res3a_branch2a_motion"
+param {
+  name: "res3a_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 128
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 2
+}
+}
+
+layer {
+name: "bn3a_branch2a_motion"
+type: "BatchNorm"
+bottom: "res3a_branch2a_motion"
+top: "res3a_branch2a_motion"
+param {
+  name: "bn3a_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3a_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3a_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3a_branch2a_motion"
+type: "Scale"
+bottom: "res3a_branch2a_motion"
+top: "res3a_branch2a_motion"
+param {
+  name: "scale3a_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3a_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3a_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res3a_branch2a_motion"
+top: "res3a_branch2a_motion"
+}
+
+layer {
+name: "res3a_branch2b_motion"
+type: "Convolution"
+bottom: "res3a_branch2a_motion"
+top: "res3a_branch2b_motion"
+param {
+  name: "res3a_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 128
+  bias_term: false
+  pad: 1
+  kernel_size: 3
+  stride: 1
+}
+}
+
+layer {
+name: "bn3a_branch2b_motion"
+type: "BatchNorm"
+bottom: "res3a_branch2b_motion"
+top: "res3a_branch2b_motion"
+param {
+  name: "bn3a_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3a_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3a_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3a_branch2b_motion"
+type: "Scale"
+bottom: "res3a_branch2b_motion"
+top: "res3a_branch2b_motion"
+param {
+  name: "scale3a_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3a_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3a_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res3a_branch2b_motion"
+top: "res3a_branch2b_motion"
+}
+
+layer {
+name: "res3a_branch2c_motion"
+type: "Convolution"
+bottom: "res3a_branch2b_motion"
+top: "res3a_branch2c_motion"
+param {
+  name: "res3a_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn3a_branch2c_motion"
+type: "BatchNorm"
+bottom: "res3a_branch2c_motion"
+top: "res3a_branch2c_motion"
+param {
+  name: "bn3a_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3a_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3a_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3a_branch2c_motion"
+type: "Scale"
+bottom: "res3a_branch2c_motion"
+top: "res3a_branch2c_motion"
+param {
+  name: "scale3a_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3a_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3a_motion"
+type: "Eltwise"
+bottom: "res3a_branch1_motion"
+bottom: "res3a_branch2c_motion"
+top: "res3a_motion"
+}
+
+layer {
+name: "res3a_relu_motion"
+type: "ReLU"
+bottom: "res3a_motion"
+top: "res3a_motion"
+}
+
+layer {
+name: "res3b1_branch2a_motion"
+type: "Convolution"
+bottom: "res3a_motion"
+top: "res3b1_branch2a_motion"
+param {
+  name: "res3b1_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 128
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b1_branch2a_motion"
+type: "BatchNorm"
+bottom: "res3b1_branch2a_motion"
+top: "res3b1_branch2a_motion"
+param {
+  name: "bn3b1_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b1_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b1_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b1_branch2a_motion"
+type: "Scale"
+bottom: "res3b1_branch2a_motion"
+top: "res3b1_branch2a_motion"
+param {
+  name: "scale3b1_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b1_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b1_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res3b1_branch2a_motion"
+top: "res3b1_branch2a_motion"
+}
+
+layer {
+name: "res3b1_branch2b_motion"
+type: "Convolution"
+bottom: "res3b1_branch2a_motion"
+top: "res3b1_branch2b_motion"
+param {
+  name: "res3b1_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 128
+  bias_term: false
+  pad: 1
+  kernel_size: 3
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b1_branch2b_motion"
+type: "BatchNorm"
+bottom: "res3b1_branch2b_motion"
+top: "res3b1_branch2b_motion"
+param {
+  name: "bn3b1_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b1_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b1_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b1_branch2b_motion"
+type: "Scale"
+bottom: "res3b1_branch2b_motion"
+top: "res3b1_branch2b_motion"
+param {
+  name: "scale3b1_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b1_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b1_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res3b1_branch2b_motion"
+top: "res3b1_branch2b_motion"
+}
+
+layer {
+name: "res3b1_branch2c_motion"
+type: "Convolution"
+bottom: "res3b1_branch2b_motion"
+top: "res3b1_branch2c_motion"
+param {
+  name: "res3b1_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b1_branch2c_motion"
+type: "BatchNorm"
+bottom: "res3b1_branch2c_motion"
+top: "res3b1_branch2c_motion"
+param {
+  name: "bn3b1_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b1_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b1_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b1_branch2c_motion"
+type: "Scale"
+bottom: "res3b1_branch2c_motion"
+top: "res3b1_branch2c_motion"
+param {
+  name: "scale3b1_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b1_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b1_motion"
+type: "Eltwise"
+bottom: "res3a_motion"
+bottom: "res3b1_branch2c_motion"
+top: "res3b1_motion"
+}
+
+layer {
+name: "res3b1_relu_motion"
+type: "ReLU"
+bottom: "res3b1_motion"
+top: "res3b1_motion"
+}
+
+layer {
+name: "res3b2_branch2a_motion"
+type: "Convolution"
+bottom: "res3b1_motion"
+top: "res3b2_branch2a_motion"
+param {
+  name: "res3b2_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 128
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b2_branch2a_motion"
+type: "BatchNorm"
+bottom: "res3b2_branch2a_motion"
+top: "res3b2_branch2a_motion"
+param {
+  name: "bn3b2_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b2_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b2_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b2_branch2a_motion"
+type: "Scale"
+bottom: "res3b2_branch2a_motion"
+top: "res3b2_branch2a_motion"
+param {
+  name: "scale3b2_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b2_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b2_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res3b2_branch2a_motion"
+top: "res3b2_branch2a_motion"
+}
+
+layer {
+name: "res3b2_branch2b_motion"
+type: "Convolution"
+bottom: "res3b2_branch2a_motion"
+top: "res3b2_branch2b_motion"
+param {
+  name: "res3b2_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 128
+  bias_term: false
+  pad: 1
+  kernel_size: 3
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b2_branch2b_motion"
+type: "BatchNorm"
+bottom: "res3b2_branch2b_motion"
+top: "res3b2_branch2b_motion"
+param {
+  name: "bn3b2_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b2_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b2_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b2_branch2b_motion"
+type: "Scale"
+bottom: "res3b2_branch2b_motion"
+top: "res3b2_branch2b_motion"
+param {
+  name: "scale3b2_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b2_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b2_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res3b2_branch2b_motion"
+top: "res3b2_branch2b_motion"
+}
+
+layer {
+name: "res3b2_branch2c_motion"
+type: "Convolution"
+bottom: "res3b2_branch2b_motion"
+top: "res3b2_branch2c_motion"
+param {
+  name: "res3b2_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b2_branch2c_motion"
+type: "BatchNorm"
+bottom: "res3b2_branch2c_motion"
+top: "res3b2_branch2c_motion"
+param {
+  name: "bn3b2_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b2_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b2_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b2_branch2c_motion"
+type: "Scale"
+bottom: "res3b2_branch2c_motion"
+top: "res3b2_branch2c_motion"
+param {
+  name: "scale3b2_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b2_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b2_motion"
+type: "Eltwise"
+bottom: "res3b1_motion"
+bottom: "res3b2_branch2c_motion"
+top: "res3b2_motion"
+}
+
+layer {
+name: "res3b2_relu_motion"
+type: "ReLU"
+bottom: "res3b2_motion"
+top: "res3b2_motion"
+}
+
+layer {
+name: "res3b3_branch2a_motion"
+type: "Convolution"
+bottom: "res3b2_motion"
+top: "res3b3_branch2a_motion"
+param {
+  name: "res3b3_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 128
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b3_branch2a_motion"
+type: "BatchNorm"
+bottom: "res3b3_branch2a_motion"
+top: "res3b3_branch2a_motion"
+param {
+  name: "bn3b3_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b3_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b3_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b3_branch2a_motion"
+type: "Scale"
+bottom: "res3b3_branch2a_motion"
+top: "res3b3_branch2a_motion"
+param {
+  name: "scale3b3_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b3_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b3_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res3b3_branch2a_motion"
+top: "res3b3_branch2a_motion"
+}
+
+layer {
+name: "res3b3_branch2b_motion"
+type: "Convolution"
+bottom: "res3b3_branch2a_motion"
+top: "res3b3_branch2b_motion"
+param {
+  name: "res3b3_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 128
+  bias_term: false
+  pad: 1
+  kernel_size: 3
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b3_branch2b_motion"
+type: "BatchNorm"
+bottom: "res3b3_branch2b_motion"
+top: "res3b3_branch2b_motion"
+param {
+  name: "bn3b3_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b3_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b3_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b3_branch2b_motion"
+type: "Scale"
+bottom: "res3b3_branch2b_motion"
+top: "res3b3_branch2b_motion"
+param {
+  name: "scale3b3_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b3_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b3_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res3b3_branch2b_motion"
+top: "res3b3_branch2b_motion"
+}
+
+layer {
+name: "res3b3_branch2c_motion"
+type: "Convolution"
+bottom: "res3b3_branch2b_motion"
+top: "res3b3_branch2c_motion"
+param {
+  name: "res3b3_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn3b3_branch2c_motion"
+type: "BatchNorm"
+bottom: "res3b3_branch2c_motion"
+top: "res3b3_branch2c_motion"
+param {
+  name: "bn3b3_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b3_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn3b3_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale3b3_branch2c_motion"
+type: "Scale"
+bottom: "res3b3_branch2c_motion"
+top: "res3b3_branch2c_motion"
+param {
+  name: "scale3b3_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale3b3_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res3b3_motion"
+type: "Eltwise"
+bottom: "res3b2_motion"
+bottom: "res3b3_branch2c_motion"
+top: "res3b3_motion"
+}
+
+layer {
+name: "res3b3_relu_motion"
+type: "ReLU"
+bottom: "res3b3_motion"
+top: "res3b3_motion"
+}
+
+layer {
+name: "res4a_branch1_motion"
+type: "Convolution"
+bottom: "res3b3_motion"
+top: "res4a_branch1_motion"
+param {
+  name: "res4a_branch1_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4a_branch1_motion"
+type: "BatchNorm"
+bottom: "res4a_branch1_motion"
+top: "res4a_branch1_motion"
+param {
+  name: "bn4a_branch1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4a_branch1_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4a_branch1_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4a_branch1_motion"
+type: "Scale"
+bottom: "res4a_branch1_motion"
+top: "res4a_branch1_motion"
+param {
+  name: "scale4a_branch1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4a_branch1_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4a_branch2a_motion"
+type: "Convolution"
+bottom: "res3b3_motion"
+top: "res4a_branch2a_motion"
+param {
+  name: "res4a_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4a_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4a_branch2a_motion"
+top: "res4a_branch2a_motion"
+param {
+  name: "bn4a_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4a_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4a_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4a_branch2a_motion"
+type: "Scale"
+bottom: "res4a_branch2a_motion"
+top: "res4a_branch2a_motion"
+param {
+  name: "scale4a_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4a_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4a_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4a_branch2a_motion"
+top: "res4a_branch2a_motion"
+}
+
+layer {
+name: "res4a_branch2b_motion"
+type: "Convolution"
+bottom: "res4a_branch2a_motion"
+top: "res4a_branch2b_motion"
+param {
+  name: "res4a_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4a_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4a_branch2b_motion"
+top: "res4a_branch2b_motion"
+param {
+  name: "bn4a_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4a_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4a_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4a_branch2b_motion"
+type: "Scale"
+bottom: "res4a_branch2b_motion"
+top: "res4a_branch2b_motion"
+param {
+  name: "scale4a_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4a_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4a_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4a_branch2b_motion"
+top: "res4a_branch2b_motion"
+}
+
+layer {
+name: "res4a_branch2c_motion"
+type: "Convolution"
+bottom: "res4a_branch2b_motion"
+top: "res4a_branch2c_motion"
+param {
+  name: "res4a_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4a_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4a_branch2c_motion"
+top: "res4a_branch2c_motion"
+param {
+  name: "bn4a_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4a_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4a_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4a_branch2c_motion"
+type: "Scale"
+bottom: "res4a_branch2c_motion"
+top: "res4a_branch2c_motion"
+param {
+  name: "scale4a_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4a_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4a_motion"
+type: "Eltwise"
+bottom: "res4a_branch1_motion"
+bottom: "res4a_branch2c_motion"
+top: "res4a_motion"
+}
+
+layer {
+name: "res4a_relu_motion"
+type: "ReLU"
+bottom: "res4a_motion"
+top: "res4a_motion"
+}
+
+layer {
+name: "res4b1_branch2a_motion"
+type: "Convolution"
+bottom: "res4a_motion"
+top: "res4b1_branch2a_motion"
+param {
+  name: "res4b1_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b1_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b1_branch2a_motion"
+top: "res4b1_branch2a_motion"
+param {
+  name: "bn4b1_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b1_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b1_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b1_branch2a_motion"
+type: "Scale"
+bottom: "res4b1_branch2a_motion"
+top: "res4b1_branch2a_motion"
+param {
+  name: "scale4b1_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b1_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b1_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b1_branch2a_motion"
+top: "res4b1_branch2a_motion"
+}
+
+layer {
+name: "res4b1_branch2b_motion"
+type: "Convolution"
+bottom: "res4b1_branch2a_motion"
+top: "res4b1_branch2b_motion"
+param {
+  name: "res4b1_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b1_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b1_branch2b_motion"
+top: "res4b1_branch2b_motion"
+param {
+  name: "bn4b1_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b1_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b1_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b1_branch2b_motion"
+type: "Scale"
+bottom: "res4b1_branch2b_motion"
+top: "res4b1_branch2b_motion"
+param {
+  name: "scale4b1_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b1_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b1_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b1_branch2b_motion"
+top: "res4b1_branch2b_motion"
+}
+
+layer {
+name: "res4b1_branch2c_motion"
+type: "Convolution"
+bottom: "res4b1_branch2b_motion"
+top: "res4b1_branch2c_motion"
+param {
+  name: "res4b1_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b1_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b1_branch2c_motion"
+top: "res4b1_branch2c_motion"
+param {
+  name: "bn4b1_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b1_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b1_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b1_branch2c_motion"
+type: "Scale"
+bottom: "res4b1_branch2c_motion"
+top: "res4b1_branch2c_motion"
+param {
+  name: "scale4b1_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b1_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b1_motion"
+type: "Eltwise"
+bottom: "res4a_motion"
+bottom: "res4b1_branch2c_motion"
+top: "res4b1_motion"
+}
+
+layer {
+name: "res4b1_relu_motion"
+type: "ReLU"
+bottom: "res4b1_motion"
+top: "res4b1_motion"
+}
+
+layer {
+name: "res4b2_branch2a_motion"
+type: "Convolution"
+bottom: "res4b1_motion"
+top: "res4b2_branch2a_motion"
+param {
+  name: "res4b2_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b2_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b2_branch2a_motion"
+top: "res4b2_branch2a_motion"
+param {
+  name: "bn4b2_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b2_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b2_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b2_branch2a_motion"
+type: "Scale"
+bottom: "res4b2_branch2a_motion"
+top: "res4b2_branch2a_motion"
+param {
+  name: "scale4b2_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b2_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b2_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b2_branch2a_motion"
+top: "res4b2_branch2a_motion"
+}
+
+layer {
+name: "res4b2_branch2b_motion"
+type: "Convolution"
+bottom: "res4b2_branch2a_motion"
+top: "res4b2_branch2b_motion"
+param {
+  name: "res4b2_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b2_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b2_branch2b_motion"
+top: "res4b2_branch2b_motion"
+param {
+  name: "bn4b2_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b2_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b2_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b2_branch2b_motion"
+type: "Scale"
+bottom: "res4b2_branch2b_motion"
+top: "res4b2_branch2b_motion"
+param {
+  name: "scale4b2_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b2_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b2_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b2_branch2b_motion"
+top: "res4b2_branch2b_motion"
+}
+
+layer {
+name: "res4b2_branch2c_motion"
+type: "Convolution"
+bottom: "res4b2_branch2b_motion"
+top: "res4b2_branch2c_motion"
+param {
+  name: "res4b2_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b2_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b2_branch2c_motion"
+top: "res4b2_branch2c_motion"
+param {
+  name: "bn4b2_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b2_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b2_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b2_branch2c_motion"
+type: "Scale"
+bottom: "res4b2_branch2c_motion"
+top: "res4b2_branch2c_motion"
+param {
+  name: "scale4b2_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b2_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b2_motion"
+type: "Eltwise"
+bottom: "res4b1_motion"
+bottom: "res4b2_branch2c_motion"
+top: "res4b2_motion"
+}
+
+layer {
+name: "res4b2_relu_motion"
+type: "ReLU"
+bottom: "res4b2_motion"
+top: "res4b2_motion"
+}
+
+layer {
+name: "res4b3_branch2a_motion"
+type: "Convolution"
+bottom: "res4b2_motion"
+top: "res4b3_branch2a_motion"
+param {
+  name: "res4b3_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b3_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b3_branch2a_motion"
+top: "res4b3_branch2a_motion"
+param {
+  name: "bn4b3_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b3_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b3_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b3_branch2a_motion"
+type: "Scale"
+bottom: "res4b3_branch2a_motion"
+top: "res4b3_branch2a_motion"
+param {
+  name: "scale4b3_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b3_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b3_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b3_branch2a_motion"
+top: "res4b3_branch2a_motion"
+}
+
+layer {
+name: "res4b3_branch2b_motion"
+type: "Convolution"
+bottom: "res4b3_branch2a_motion"
+top: "res4b3_branch2b_motion"
+param {
+  name: "res4b3_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b3_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b3_branch2b_motion"
+top: "res4b3_branch2b_motion"
+param {
+  name: "bn4b3_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b3_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b3_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b3_branch2b_motion"
+type: "Scale"
+bottom: "res4b3_branch2b_motion"
+top: "res4b3_branch2b_motion"
+param {
+  name: "scale4b3_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b3_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b3_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b3_branch2b_motion"
+top: "res4b3_branch2b_motion"
+}
+
+layer {
+name: "res4b3_branch2c_motion"
+type: "Convolution"
+bottom: "res4b3_branch2b_motion"
+top: "res4b3_branch2c_motion"
+param {
+  name: "res4b3_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b3_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b3_branch2c_motion"
+top: "res4b3_branch2c_motion"
+param {
+  name: "bn4b3_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b3_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b3_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b3_branch2c_motion"
+type: "Scale"
+bottom: "res4b3_branch2c_motion"
+top: "res4b3_branch2c_motion"
+param {
+  name: "scale4b3_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b3_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b3_motion"
+type: "Eltwise"
+bottom: "res4b2_motion"
+bottom: "res4b3_branch2c_motion"
+top: "res4b3_motion"
+}
+
+layer {
+name: "res4b3_relu_motion"
+type: "ReLU"
+bottom: "res4b3_motion"
+top: "res4b3_motion"
+}
+
+layer {
+name: "res4b4_branch2a_motion"
+type: "Convolution"
+bottom: "res4b3_motion"
+top: "res4b4_branch2a_motion"
+param {
+  name: "res4b4_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b4_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b4_branch2a_motion"
+top: "res4b4_branch2a_motion"
+param {
+  name: "bn4b4_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b4_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b4_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b4_branch2a_motion"
+type: "Scale"
+bottom: "res4b4_branch2a_motion"
+top: "res4b4_branch2a_motion"
+param {
+  name: "scale4b4_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b4_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b4_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b4_branch2a_motion"
+top: "res4b4_branch2a_motion"
+}
+
+layer {
+name: "res4b4_branch2b_motion"
+type: "Convolution"
+bottom: "res4b4_branch2a_motion"
+top: "res4b4_branch2b_motion"
+param {
+  name: "res4b4_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b4_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b4_branch2b_motion"
+top: "res4b4_branch2b_motion"
+param {
+  name: "bn4b4_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b4_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b4_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b4_branch2b_motion"
+type: "Scale"
+bottom: "res4b4_branch2b_motion"
+top: "res4b4_branch2b_motion"
+param {
+  name: "scale4b4_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b4_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b4_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b4_branch2b_motion"
+top: "res4b4_branch2b_motion"
+}
+
+layer {
+name: "res4b4_branch2c_motion"
+type: "Convolution"
+bottom: "res4b4_branch2b_motion"
+top: "res4b4_branch2c_motion"
+param {
+  name: "res4b4_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b4_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b4_branch2c_motion"
+top: "res4b4_branch2c_motion"
+param {
+  name: "bn4b4_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b4_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b4_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b4_branch2c_motion"
+type: "Scale"
+bottom: "res4b4_branch2c_motion"
+top: "res4b4_branch2c_motion"
+param {
+  name: "scale4b4_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b4_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b4_motion"
+type: "Eltwise"
+bottom: "res4b3_motion"
+bottom: "res4b4_branch2c_motion"
+top: "res4b4_motion"
+}
+
+layer {
+name: "res4b4_relu_motion"
+type: "ReLU"
+bottom: "res4b4_motion"
+top: "res4b4_motion"
+}
+
+layer {
+name: "res4b5_branch2a_motion"
+type: "Convolution"
+bottom: "res4b4_motion"
+top: "res4b5_branch2a_motion"
+param {
+  name: "res4b5_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b5_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b5_branch2a_motion"
+top: "res4b5_branch2a_motion"
+param {
+  name: "bn4b5_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b5_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b5_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b5_branch2a_motion"
+type: "Scale"
+bottom: "res4b5_branch2a_motion"
+top: "res4b5_branch2a_motion"
+param {
+  name: "scale4b5_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b5_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b5_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b5_branch2a_motion"
+top: "res4b5_branch2a_motion"
+}
+
+layer {
+name: "res4b5_branch2b_motion"
+type: "Convolution"
+bottom: "res4b5_branch2a_motion"
+top: "res4b5_branch2b_motion"
+param {
+  name: "res4b5_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b5_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b5_branch2b_motion"
+top: "res4b5_branch2b_motion"
+param {
+  name: "bn4b5_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b5_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b5_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b5_branch2b_motion"
+type: "Scale"
+bottom: "res4b5_branch2b_motion"
+top: "res4b5_branch2b_motion"
+param {
+  name: "scale4b5_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b5_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b5_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b5_branch2b_motion"
+top: "res4b5_branch2b_motion"
+}
+
+layer {
+name: "res4b5_branch2c_motion"
+type: "Convolution"
+bottom: "res4b5_branch2b_motion"
+top: "res4b5_branch2c_motion"
+param {
+  name: "res4b5_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b5_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b5_branch2c_motion"
+top: "res4b5_branch2c_motion"
+param {
+  name: "bn4b5_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b5_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b5_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b5_branch2c_motion"
+type: "Scale"
+bottom: "res4b5_branch2c_motion"
+top: "res4b5_branch2c_motion"
+param {
+  name: "scale4b5_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b5_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b5_motion"
+type: "Eltwise"
+bottom: "res4b4_motion"
+bottom: "res4b5_branch2c_motion"
+top: "res4b5_motion"
+}
+
+layer {
+name: "res4b5_relu_motion"
+type: "ReLU"
+bottom: "res4b5_motion"
+top: "res4b5_motion"
+}
+
+layer {
+name: "res4b6_branch2a_motion"
+type: "Convolution"
+bottom: "res4b5_motion"
+top: "res4b6_branch2a_motion"
+param {
+  name: "res4b6_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b6_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b6_branch2a_motion"
+top: "res4b6_branch2a_motion"
+param {
+  name: "bn4b6_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b6_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b6_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b6_branch2a_motion"
+type: "Scale"
+bottom: "res4b6_branch2a_motion"
+top: "res4b6_branch2a_motion"
+param {
+  name: "scale4b6_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b6_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b6_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b6_branch2a_motion"
+top: "res4b6_branch2a_motion"
+}
+
+layer {
+name: "res4b6_branch2b_motion"
+type: "Convolution"
+bottom: "res4b6_branch2a_motion"
+top: "res4b6_branch2b_motion"
+param {
+  name: "res4b6_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b6_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b6_branch2b_motion"
+top: "res4b6_branch2b_motion"
+param {
+  name: "bn4b6_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b6_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b6_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b6_branch2b_motion"
+type: "Scale"
+bottom: "res4b6_branch2b_motion"
+top: "res4b6_branch2b_motion"
+param {
+  name: "scale4b6_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b6_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b6_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b6_branch2b_motion"
+top: "res4b6_branch2b_motion"
+}
+
+layer {
+name: "res4b6_branch2c_motion"
+type: "Convolution"
+bottom: "res4b6_branch2b_motion"
+top: "res4b6_branch2c_motion"
+param {
+  name: "res4b6_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b6_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b6_branch2c_motion"
+top: "res4b6_branch2c_motion"
+param {
+  name: "bn4b6_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b6_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b6_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b6_branch2c_motion"
+type: "Scale"
+bottom: "res4b6_branch2c_motion"
+top: "res4b6_branch2c_motion"
+param {
+  name: "scale4b6_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b6_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b6_motion"
+type: "Eltwise"
+bottom: "res4b5_motion"
+bottom: "res4b6_branch2c_motion"
+top: "res4b6_motion"
+}
+
+layer {
+name: "res4b6_relu_motion"
+type: "ReLU"
+bottom: "res4b6_motion"
+top: "res4b6_motion"
+}
+
+layer {
+name: "res4b7_branch2a_motion"
+type: "Convolution"
+bottom: "res4b6_motion"
+top: "res4b7_branch2a_motion"
+param {
+  name: "res4b7_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b7_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b7_branch2a_motion"
+top: "res4b7_branch2a_motion"
+param {
+  name: "bn4b7_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b7_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b7_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b7_branch2a_motion"
+type: "Scale"
+bottom: "res4b7_branch2a_motion"
+top: "res4b7_branch2a_motion"
+param {
+  name: "scale4b7_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b7_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b7_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b7_branch2a_motion"
+top: "res4b7_branch2a_motion"
+}
+
+layer {
+name: "res4b7_branch2b_motion"
+type: "Convolution"
+bottom: "res4b7_branch2a_motion"
+top: "res4b7_branch2b_motion"
+param {
+  name: "res4b7_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b7_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b7_branch2b_motion"
+top: "res4b7_branch2b_motion"
+param {
+  name: "bn4b7_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b7_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b7_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b7_branch2b_motion"
+type: "Scale"
+bottom: "res4b7_branch2b_motion"
+top: "res4b7_branch2b_motion"
+param {
+  name: "scale4b7_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b7_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b7_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b7_branch2b_motion"
+top: "res4b7_branch2b_motion"
+}
+
+layer {
+name: "res4b7_branch2c_motion"
+type: "Convolution"
+bottom: "res4b7_branch2b_motion"
+top: "res4b7_branch2c_motion"
+param {
+  name: "res4b7_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b7_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b7_branch2c_motion"
+top: "res4b7_branch2c_motion"
+param {
+  name: "bn4b7_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b7_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b7_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b7_branch2c_motion"
+type: "Scale"
+bottom: "res4b7_branch2c_motion"
+top: "res4b7_branch2c_motion"
+param {
+  name: "scale4b7_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b7_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b7_motion"
+type: "Eltwise"
+bottom: "res4b6_motion"
+bottom: "res4b7_branch2c_motion"
+top: "res4b7_motion"
+}
+
+layer {
+name: "res4b7_relu_motion"
+type: "ReLU"
+bottom: "res4b7_motion"
+top: "res4b7_motion"
+}
+
+layer {
+name: "res4b8_branch2a_motion"
+type: "Convolution"
+bottom: "res4b7_motion"
+top: "res4b8_branch2a_motion"
+param {
+  name: "res4b8_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b8_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b8_branch2a_motion"
+top: "res4b8_branch2a_motion"
+param {
+  name: "bn4b8_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b8_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b8_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b8_branch2a_motion"
+type: "Scale"
+bottom: "res4b8_branch2a_motion"
+top: "res4b8_branch2a_motion"
+param {
+  name: "scale4b8_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b8_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b8_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b8_branch2a_motion"
+top: "res4b8_branch2a_motion"
+}
+
+layer {
+name: "res4b8_branch2b_motion"
+type: "Convolution"
+bottom: "res4b8_branch2a_motion"
+top: "res4b8_branch2b_motion"
+param {
+  name: "res4b8_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b8_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b8_branch2b_motion"
+top: "res4b8_branch2b_motion"
+param {
+  name: "bn4b8_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b8_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b8_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b8_branch2b_motion"
+type: "Scale"
+bottom: "res4b8_branch2b_motion"
+top: "res4b8_branch2b_motion"
+param {
+  name: "scale4b8_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b8_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b8_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b8_branch2b_motion"
+top: "res4b8_branch2b_motion"
+}
+
+layer {
+name: "res4b8_branch2c_motion"
+type: "Convolution"
+bottom: "res4b8_branch2b_motion"
+top: "res4b8_branch2c_motion"
+param {
+  name: "res4b8_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b8_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b8_branch2c_motion"
+top: "res4b8_branch2c_motion"
+param {
+  name: "bn4b8_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b8_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b8_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b8_branch2c_motion"
+type: "Scale"
+bottom: "res4b8_branch2c_motion"
+top: "res4b8_branch2c_motion"
+param {
+  name: "scale4b8_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b8_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b8_motion"
+type: "Eltwise"
+bottom: "res4b7_motion"
+bottom: "res4b8_branch2c_motion"
+top: "res4b8_motion"
+}
+
+layer {
+name: "res4b8_relu_motion"
+type: "ReLU"
+bottom: "res4b8_motion"
+top: "res4b8_motion"
+}
+
+layer {
+name: "res4b9_branch2a_motion"
+type: "Convolution"
+bottom: "res4b8_motion"
+top: "res4b9_branch2a_motion"
+param {
+  name: "res4b9_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b9_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b9_branch2a_motion"
+top: "res4b9_branch2a_motion"
+param {
+  name: "bn4b9_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b9_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b9_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b9_branch2a_motion"
+type: "Scale"
+bottom: "res4b9_branch2a_motion"
+top: "res4b9_branch2a_motion"
+param {
+  name: "scale4b9_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b9_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b9_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b9_branch2a_motion"
+top: "res4b9_branch2a_motion"
+}
+
+layer {
+name: "res4b9_branch2b_motion"
+type: "Convolution"
+bottom: "res4b9_branch2a_motion"
+top: "res4b9_branch2b_motion"
+param {
+  name: "res4b9_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b9_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b9_branch2b_motion"
+top: "res4b9_branch2b_motion"
+param {
+  name: "bn4b9_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b9_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b9_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b9_branch2b_motion"
+type: "Scale"
+bottom: "res4b9_branch2b_motion"
+top: "res4b9_branch2b_motion"
+param {
+  name: "scale4b9_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b9_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b9_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b9_branch2b_motion"
+top: "res4b9_branch2b_motion"
+}
+
+layer {
+name: "res4b9_branch2c_motion"
+type: "Convolution"
+bottom: "res4b9_branch2b_motion"
+top: "res4b9_branch2c_motion"
+param {
+  name: "res4b9_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b9_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b9_branch2c_motion"
+top: "res4b9_branch2c_motion"
+param {
+  name: "bn4b9_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b9_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b9_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b9_branch2c_motion"
+type: "Scale"
+bottom: "res4b9_branch2c_motion"
+top: "res4b9_branch2c_motion"
+param {
+  name: "scale4b9_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b9_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b9_motion"
+type: "Eltwise"
+bottom: "res4b8_motion"
+bottom: "res4b9_branch2c_motion"
+top: "res4b9_motion"
+}
+
+layer {
+name: "res4b9_relu_motion"
+type: "ReLU"
+bottom: "res4b9_motion"
+top: "res4b9_motion"
+}
+
+layer {
+name: "res4b10_branch2a_motion"
+type: "Convolution"
+bottom: "res4b9_motion"
+top: "res4b10_branch2a_motion"
+param {
+  name: "res4b10_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b10_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b10_branch2a_motion"
+top: "res4b10_branch2a_motion"
+param {
+  name: "bn4b10_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b10_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b10_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b10_branch2a_motion"
+type: "Scale"
+bottom: "res4b10_branch2a_motion"
+top: "res4b10_branch2a_motion"
+param {
+  name: "scale4b10_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b10_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b10_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b10_branch2a_motion"
+top: "res4b10_branch2a_motion"
+}
+
+layer {
+name: "res4b10_branch2b_motion"
+type: "Convolution"
+bottom: "res4b10_branch2a_motion"
+top: "res4b10_branch2b_motion"
+param {
+  name: "res4b10_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b10_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b10_branch2b_motion"
+top: "res4b10_branch2b_motion"
+param {
+  name: "bn4b10_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b10_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b10_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b10_branch2b_motion"
+type: "Scale"
+bottom: "res4b10_branch2b_motion"
+top: "res4b10_branch2b_motion"
+param {
+  name: "scale4b10_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b10_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b10_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b10_branch2b_motion"
+top: "res4b10_branch2b_motion"
+}
+
+layer {
+name: "res4b10_branch2c_motion"
+type: "Convolution"
+bottom: "res4b10_branch2b_motion"
+top: "res4b10_branch2c_motion"
+param {
+  name: "res4b10_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b10_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b10_branch2c_motion"
+top: "res4b10_branch2c_motion"
+param {
+  name: "bn4b10_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b10_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b10_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b10_branch2c_motion"
+type: "Scale"
+bottom: "res4b10_branch2c_motion"
+top: "res4b10_branch2c_motion"
+param {
+  name: "scale4b10_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b10_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b10_motion"
+type: "Eltwise"
+bottom: "res4b9_motion"
+bottom: "res4b10_branch2c_motion"
+top: "res4b10_motion"
+}
+
+layer {
+name: "res4b10_relu_motion"
+type: "ReLU"
+bottom: "res4b10_motion"
+top: "res4b10_motion"
+}
+
+layer {
+name: "res4b11_branch2a_motion"
+type: "Convolution"
+bottom: "res4b10_motion"
+top: "res4b11_branch2a_motion"
+param {
+  name: "res4b11_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b11_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b11_branch2a_motion"
+top: "res4b11_branch2a_motion"
+param {
+  name: "bn4b11_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b11_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b11_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b11_branch2a_motion"
+type: "Scale"
+bottom: "res4b11_branch2a_motion"
+top: "res4b11_branch2a_motion"
+param {
+  name: "scale4b11_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b11_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b11_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b11_branch2a_motion"
+top: "res4b11_branch2a_motion"
+}
+
+layer {
+name: "res4b11_branch2b_motion"
+type: "Convolution"
+bottom: "res4b11_branch2a_motion"
+top: "res4b11_branch2b_motion"
+param {
+  name: "res4b11_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b11_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b11_branch2b_motion"
+top: "res4b11_branch2b_motion"
+param {
+  name: "bn4b11_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b11_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b11_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b11_branch2b_motion"
+type: "Scale"
+bottom: "res4b11_branch2b_motion"
+top: "res4b11_branch2b_motion"
+param {
+  name: "scale4b11_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b11_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b11_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b11_branch2b_motion"
+top: "res4b11_branch2b_motion"
+}
+
+layer {
+name: "res4b11_branch2c_motion"
+type: "Convolution"
+bottom: "res4b11_branch2b_motion"
+top: "res4b11_branch2c_motion"
+param {
+  name: "res4b11_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b11_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b11_branch2c_motion"
+top: "res4b11_branch2c_motion"
+param {
+  name: "bn4b11_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b11_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b11_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b11_branch2c_motion"
+type: "Scale"
+bottom: "res4b11_branch2c_motion"
+top: "res4b11_branch2c_motion"
+param {
+  name: "scale4b11_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b11_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b11_motion"
+type: "Eltwise"
+bottom: "res4b10_motion"
+bottom: "res4b11_branch2c_motion"
+top: "res4b11_motion"
+}
+
+layer {
+name: "res4b11_relu_motion"
+type: "ReLU"
+bottom: "res4b11_motion"
+top: "res4b11_motion"
+}
+
+layer {
+name: "res4b12_branch2a_motion"
+type: "Convolution"
+bottom: "res4b11_motion"
+top: "res4b12_branch2a_motion"
+param {
+  name: "res4b12_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b12_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b12_branch2a_motion"
+top: "res4b12_branch2a_motion"
+param {
+  name: "bn4b12_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b12_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b12_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b12_branch2a_motion"
+type: "Scale"
+bottom: "res4b12_branch2a_motion"
+top: "res4b12_branch2a_motion"
+param {
+  name: "scale4b12_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b12_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b12_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b12_branch2a_motion"
+top: "res4b12_branch2a_motion"
+}
+
+layer {
+name: "res4b12_branch2b_motion"
+type: "Convolution"
+bottom: "res4b12_branch2a_motion"
+top: "res4b12_branch2b_motion"
+param {
+  name: "res4b12_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b12_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b12_branch2b_motion"
+top: "res4b12_branch2b_motion"
+param {
+  name: "bn4b12_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b12_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b12_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b12_branch2b_motion"
+type: "Scale"
+bottom: "res4b12_branch2b_motion"
+top: "res4b12_branch2b_motion"
+param {
+  name: "scale4b12_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b12_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b12_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b12_branch2b_motion"
+top: "res4b12_branch2b_motion"
+}
+
+layer {
+name: "res4b12_branch2c_motion"
+type: "Convolution"
+bottom: "res4b12_branch2b_motion"
+top: "res4b12_branch2c_motion"
+param {
+  name: "res4b12_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b12_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b12_branch2c_motion"
+top: "res4b12_branch2c_motion"
+param {
+  name: "bn4b12_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b12_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b12_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b12_branch2c_motion"
+type: "Scale"
+bottom: "res4b12_branch2c_motion"
+top: "res4b12_branch2c_motion"
+param {
+  name: "scale4b12_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b12_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b12_motion"
+type: "Eltwise"
+bottom: "res4b11_motion"
+bottom: "res4b12_branch2c_motion"
+top: "res4b12_motion"
+}
+
+layer {
+name: "res4b12_relu_motion"
+type: "ReLU"
+bottom: "res4b12_motion"
+top: "res4b12_motion"
+}
+
+layer {
+name: "res4b13_branch2a_motion"
+type: "Convolution"
+bottom: "res4b12_motion"
+top: "res4b13_branch2a_motion"
+param {
+  name: "res4b13_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b13_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b13_branch2a_motion"
+top: "res4b13_branch2a_motion"
+param {
+  name: "bn4b13_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b13_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b13_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b13_branch2a_motion"
+type: "Scale"
+bottom: "res4b13_branch2a_motion"
+top: "res4b13_branch2a_motion"
+param {
+  name: "scale4b13_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b13_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b13_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b13_branch2a_motion"
+top: "res4b13_branch2a_motion"
+}
+
+layer {
+name: "res4b13_branch2b_motion"
+type: "Convolution"
+bottom: "res4b13_branch2a_motion"
+top: "res4b13_branch2b_motion"
+param {
+  name: "res4b13_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b13_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b13_branch2b_motion"
+top: "res4b13_branch2b_motion"
+param {
+  name: "bn4b13_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b13_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b13_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b13_branch2b_motion"
+type: "Scale"
+bottom: "res4b13_branch2b_motion"
+top: "res4b13_branch2b_motion"
+param {
+  name: "scale4b13_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b13_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b13_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b13_branch2b_motion"
+top: "res4b13_branch2b_motion"
+}
+
+layer {
+name: "res4b13_branch2c_motion"
+type: "Convolution"
+bottom: "res4b13_branch2b_motion"
+top: "res4b13_branch2c_motion"
+param {
+  name: "res4b13_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b13_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b13_branch2c_motion"
+top: "res4b13_branch2c_motion"
+param {
+  name: "bn4b13_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b13_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b13_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b13_branch2c_motion"
+type: "Scale"
+bottom: "res4b13_branch2c_motion"
+top: "res4b13_branch2c_motion"
+param {
+  name: "scale4b13_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b13_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b13_motion"
+type: "Eltwise"
+bottom: "res4b12_motion"
+bottom: "res4b13_branch2c_motion"
+top: "res4b13_motion"
+}
+
+layer {
+name: "res4b13_relu_motion"
+type: "ReLU"
+bottom: "res4b13_motion"
+top: "res4b13_motion"
+}
+
+layer {
+name: "res4b14_branch2a_motion"
+type: "Convolution"
+bottom: "res4b13_motion"
+top: "res4b14_branch2a_motion"
+param {
+  name: "res4b14_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b14_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b14_branch2a_motion"
+top: "res4b14_branch2a_motion"
+param {
+  name: "bn4b14_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b14_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b14_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b14_branch2a_motion"
+type: "Scale"
+bottom: "res4b14_branch2a_motion"
+top: "res4b14_branch2a_motion"
+param {
+  name: "scale4b14_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b14_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b14_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b14_branch2a_motion"
+top: "res4b14_branch2a_motion"
+}
+
+layer {
+name: "res4b14_branch2b_motion"
+type: "Convolution"
+bottom: "res4b14_branch2a_motion"
+top: "res4b14_branch2b_motion"
+param {
+  name: "res4b14_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b14_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b14_branch2b_motion"
+top: "res4b14_branch2b_motion"
+param {
+  name: "bn4b14_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b14_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b14_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b14_branch2b_motion"
+type: "Scale"
+bottom: "res4b14_branch2b_motion"
+top: "res4b14_branch2b_motion"
+param {
+  name: "scale4b14_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b14_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b14_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b14_branch2b_motion"
+top: "res4b14_branch2b_motion"
+}
+
+layer {
+name: "res4b14_branch2c_motion"
+type: "Convolution"
+bottom: "res4b14_branch2b_motion"
+top: "res4b14_branch2c_motion"
+param {
+  name: "res4b14_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b14_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b14_branch2c_motion"
+top: "res4b14_branch2c_motion"
+param {
+  name: "bn4b14_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b14_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b14_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b14_branch2c_motion"
+type: "Scale"
+bottom: "res4b14_branch2c_motion"
+top: "res4b14_branch2c_motion"
+param {
+  name: "scale4b14_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b14_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b14_motion"
+type: "Eltwise"
+bottom: "res4b13_motion"
+bottom: "res4b14_branch2c_motion"
+top: "res4b14_motion"
+}
+
+layer {
+name: "res4b14_relu_motion"
+type: "ReLU"
+bottom: "res4b14_motion"
+top: "res4b14_motion"
+}
+
+layer {
+name: "res4b15_branch2a_motion"
+type: "Convolution"
+bottom: "res4b14_motion"
+top: "res4b15_branch2a_motion"
+param {
+  name: "res4b15_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b15_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b15_branch2a_motion"
+top: "res4b15_branch2a_motion"
+param {
+  name: "bn4b15_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b15_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b15_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b15_branch2a_motion"
+type: "Scale"
+bottom: "res4b15_branch2a_motion"
+top: "res4b15_branch2a_motion"
+param {
+  name: "scale4b15_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b15_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b15_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b15_branch2a_motion"
+top: "res4b15_branch2a_motion"
+}
+
+layer {
+name: "res4b15_branch2b_motion"
+type: "Convolution"
+bottom: "res4b15_branch2a_motion"
+top: "res4b15_branch2b_motion"
+param {
+  name: "res4b15_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b15_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b15_branch2b_motion"
+top: "res4b15_branch2b_motion"
+param {
+  name: "bn4b15_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b15_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b15_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b15_branch2b_motion"
+type: "Scale"
+bottom: "res4b15_branch2b_motion"
+top: "res4b15_branch2b_motion"
+param {
+  name: "scale4b15_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b15_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b15_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b15_branch2b_motion"
+top: "res4b15_branch2b_motion"
+}
+
+layer {
+name: "res4b15_branch2c_motion"
+type: "Convolution"
+bottom: "res4b15_branch2b_motion"
+top: "res4b15_branch2c_motion"
+param {
+  name: "res4b15_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b15_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b15_branch2c_motion"
+top: "res4b15_branch2c_motion"
+param {
+  name: "bn4b15_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b15_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b15_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b15_branch2c_motion"
+type: "Scale"
+bottom: "res4b15_branch2c_motion"
+top: "res4b15_branch2c_motion"
+param {
+  name: "scale4b15_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b15_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b15_motion"
+type: "Eltwise"
+bottom: "res4b14_motion"
+bottom: "res4b15_branch2c_motion"
+top: "res4b15_motion"
+}
+
+layer {
+name: "res4b15_relu_motion"
+type: "ReLU"
+bottom: "res4b15_motion"
+top: "res4b15_motion"
+}
+
+layer {
+name: "res4b16_branch2a_motion"
+type: "Convolution"
+bottom: "res4b15_motion"
+top: "res4b16_branch2a_motion"
+param {
+  name: "res4b16_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b16_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b16_branch2a_motion"
+top: "res4b16_branch2a_motion"
+param {
+  name: "bn4b16_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b16_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b16_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b16_branch2a_motion"
+type: "Scale"
+bottom: "res4b16_branch2a_motion"
+top: "res4b16_branch2a_motion"
+param {
+  name: "scale4b16_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b16_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b16_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b16_branch2a_motion"
+top: "res4b16_branch2a_motion"
+}
+
+layer {
+name: "res4b16_branch2b_motion"
+type: "Convolution"
+bottom: "res4b16_branch2a_motion"
+top: "res4b16_branch2b_motion"
+param {
+  name: "res4b16_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b16_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b16_branch2b_motion"
+top: "res4b16_branch2b_motion"
+param {
+  name: "bn4b16_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b16_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b16_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b16_branch2b_motion"
+type: "Scale"
+bottom: "res4b16_branch2b_motion"
+top: "res4b16_branch2b_motion"
+param {
+  name: "scale4b16_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b16_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b16_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b16_branch2b_motion"
+top: "res4b16_branch2b_motion"
+}
+
+layer {
+name: "res4b16_branch2c_motion"
+type: "Convolution"
+bottom: "res4b16_branch2b_motion"
+top: "res4b16_branch2c_motion"
+param {
+  name: "res4b16_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b16_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b16_branch2c_motion"
+top: "res4b16_branch2c_motion"
+param {
+  name: "bn4b16_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b16_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b16_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b16_branch2c_motion"
+type: "Scale"
+bottom: "res4b16_branch2c_motion"
+top: "res4b16_branch2c_motion"
+param {
+  name: "scale4b16_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b16_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b16_motion"
+type: "Eltwise"
+bottom: "res4b15_motion"
+bottom: "res4b16_branch2c_motion"
+top: "res4b16_motion"
+}
+
+layer {
+name: "res4b16_relu_motion"
+type: "ReLU"
+bottom: "res4b16_motion"
+top: "res4b16_motion"
+}
+
+layer {
+name: "res4b17_branch2a_motion"
+type: "Convolution"
+bottom: "res4b16_motion"
+top: "res4b17_branch2a_motion"
+param {
+  name: "res4b17_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b17_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b17_branch2a_motion"
+top: "res4b17_branch2a_motion"
+param {
+  name: "bn4b17_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b17_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b17_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b17_branch2a_motion"
+type: "Scale"
+bottom: "res4b17_branch2a_motion"
+top: "res4b17_branch2a_motion"
+param {
+  name: "scale4b17_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b17_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b17_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b17_branch2a_motion"
+top: "res4b17_branch2a_motion"
+}
+
+layer {
+name: "res4b17_branch2b_motion"
+type: "Convolution"
+bottom: "res4b17_branch2a_motion"
+top: "res4b17_branch2b_motion"
+param {
+  name: "res4b17_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b17_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b17_branch2b_motion"
+top: "res4b17_branch2b_motion"
+param {
+  name: "bn4b17_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b17_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b17_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b17_branch2b_motion"
+type: "Scale"
+bottom: "res4b17_branch2b_motion"
+top: "res4b17_branch2b_motion"
+param {
+  name: "scale4b17_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b17_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b17_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b17_branch2b_motion"
+top: "res4b17_branch2b_motion"
+}
+
+layer {
+name: "res4b17_branch2c_motion"
+type: "Convolution"
+bottom: "res4b17_branch2b_motion"
+top: "res4b17_branch2c_motion"
+param {
+  name: "res4b17_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b17_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b17_branch2c_motion"
+top: "res4b17_branch2c_motion"
+param {
+  name: "bn4b17_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b17_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b17_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b17_branch2c_motion"
+type: "Scale"
+bottom: "res4b17_branch2c_motion"
+top: "res4b17_branch2c_motion"
+param {
+  name: "scale4b17_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b17_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b17_motion"
+type: "Eltwise"
+bottom: "res4b16_motion"
+bottom: "res4b17_branch2c_motion"
+top: "res4b17_motion"
+}
+
+layer {
+name: "res4b17_relu_motion"
+type: "ReLU"
+bottom: "res4b17_motion"
+top: "res4b17_motion"
+}
+
+layer {
+name: "res4b18_branch2a_motion"
+type: "Convolution"
+bottom: "res4b17_motion"
+top: "res4b18_branch2a_motion"
+param {
+  name: "res4b18_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b18_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b18_branch2a_motion"
+top: "res4b18_branch2a_motion"
+param {
+  name: "bn4b18_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b18_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b18_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b18_branch2a_motion"
+type: "Scale"
+bottom: "res4b18_branch2a_motion"
+top: "res4b18_branch2a_motion"
+param {
+  name: "scale4b18_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b18_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b18_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b18_branch2a_motion"
+top: "res4b18_branch2a_motion"
+}
+
+layer {
+name: "res4b18_branch2b_motion"
+type: "Convolution"
+bottom: "res4b18_branch2a_motion"
+top: "res4b18_branch2b_motion"
+param {
+  name: "res4b18_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b18_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b18_branch2b_motion"
+top: "res4b18_branch2b_motion"
+param {
+  name: "bn4b18_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b18_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b18_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b18_branch2b_motion"
+type: "Scale"
+bottom: "res4b18_branch2b_motion"
+top: "res4b18_branch2b_motion"
+param {
+  name: "scale4b18_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b18_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b18_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b18_branch2b_motion"
+top: "res4b18_branch2b_motion"
+}
+
+layer {
+name: "res4b18_branch2c_motion"
+type: "Convolution"
+bottom: "res4b18_branch2b_motion"
+top: "res4b18_branch2c_motion"
+param {
+  name: "res4b18_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b18_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b18_branch2c_motion"
+top: "res4b18_branch2c_motion"
+param {
+  name: "bn4b18_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b18_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b18_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b18_branch2c_motion"
+type: "Scale"
+bottom: "res4b18_branch2c_motion"
+top: "res4b18_branch2c_motion"
+param {
+  name: "scale4b18_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b18_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b18_motion"
+type: "Eltwise"
+bottom: "res4b17_motion"
+bottom: "res4b18_branch2c_motion"
+top: "res4b18_motion"
+}
+
+layer {
+name: "res4b18_relu_motion"
+type: "ReLU"
+bottom: "res4b18_motion"
+top: "res4b18_motion"
+}
+
+layer {
+name: "res4b19_branch2a_motion"
+type: "Convolution"
+bottom: "res4b18_motion"
+top: "res4b19_branch2a_motion"
+param {
+  name: "res4b19_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b19_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b19_branch2a_motion"
+top: "res4b19_branch2a_motion"
+param {
+  name: "bn4b19_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b19_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b19_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b19_branch2a_motion"
+type: "Scale"
+bottom: "res4b19_branch2a_motion"
+top: "res4b19_branch2a_motion"
+param {
+  name: "scale4b19_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b19_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b19_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b19_branch2a_motion"
+top: "res4b19_branch2a_motion"
+}
+
+layer {
+name: "res4b19_branch2b_motion"
+type: "Convolution"
+bottom: "res4b19_branch2a_motion"
+top: "res4b19_branch2b_motion"
+param {
+  name: "res4b19_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b19_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b19_branch2b_motion"
+top: "res4b19_branch2b_motion"
+param {
+  name: "bn4b19_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b19_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b19_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b19_branch2b_motion"
+type: "Scale"
+bottom: "res4b19_branch2b_motion"
+top: "res4b19_branch2b_motion"
+param {
+  name: "scale4b19_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b19_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b19_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b19_branch2b_motion"
+top: "res4b19_branch2b_motion"
+}
+
+layer {
+name: "res4b19_branch2c_motion"
+type: "Convolution"
+bottom: "res4b19_branch2b_motion"
+top: "res4b19_branch2c_motion"
+param {
+  name: "res4b19_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b19_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b19_branch2c_motion"
+top: "res4b19_branch2c_motion"
+param {
+  name: "bn4b19_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b19_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b19_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b19_branch2c_motion"
+type: "Scale"
+bottom: "res4b19_branch2c_motion"
+top: "res4b19_branch2c_motion"
+param {
+  name: "scale4b19_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b19_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b19_motion"
+type: "Eltwise"
+bottom: "res4b18_motion"
+bottom: "res4b19_branch2c_motion"
+top: "res4b19_motion"
+}
+
+layer {
+name: "res4b19_relu_motion"
+type: "ReLU"
+bottom: "res4b19_motion"
+top: "res4b19_motion"
+}
+
+layer {
+name: "res4b20_branch2a_motion"
+type: "Convolution"
+bottom: "res4b19_motion"
+top: "res4b20_branch2a_motion"
+param {
+  name: "res4b20_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b20_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b20_branch2a_motion"
+top: "res4b20_branch2a_motion"
+param {
+  name: "bn4b20_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b20_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b20_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b20_branch2a_motion"
+type: "Scale"
+bottom: "res4b20_branch2a_motion"
+top: "res4b20_branch2a_motion"
+param {
+  name: "scale4b20_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b20_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b20_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b20_branch2a_motion"
+top: "res4b20_branch2a_motion"
+}
+
+layer {
+name: "res4b20_branch2b_motion"
+type: "Convolution"
+bottom: "res4b20_branch2a_motion"
+top: "res4b20_branch2b_motion"
+param {
+  name: "res4b20_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b20_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b20_branch2b_motion"
+top: "res4b20_branch2b_motion"
+param {
+  name: "bn4b20_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b20_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b20_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b20_branch2b_motion"
+type: "Scale"
+bottom: "res4b20_branch2b_motion"
+top: "res4b20_branch2b_motion"
+param {
+  name: "scale4b20_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b20_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b20_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b20_branch2b_motion"
+top: "res4b20_branch2b_motion"
+}
+
+layer {
+name: "res4b20_branch2c_motion"
+type: "Convolution"
+bottom: "res4b20_branch2b_motion"
+top: "res4b20_branch2c_motion"
+param {
+  name: "res4b20_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b20_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b20_branch2c_motion"
+top: "res4b20_branch2c_motion"
+param {
+  name: "bn4b20_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b20_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b20_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b20_branch2c_motion"
+type: "Scale"
+bottom: "res4b20_branch2c_motion"
+top: "res4b20_branch2c_motion"
+param {
+  name: "scale4b20_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b20_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b20_motion"
+type: "Eltwise"
+bottom: "res4b19_motion"
+bottom: "res4b20_branch2c_motion"
+top: "res4b20_motion"
+}
+
+layer {
+name: "res4b20_relu_motion"
+type: "ReLU"
+bottom: "res4b20_motion"
+top: "res4b20_motion"
+}
+
+layer {
+name: "res4b21_branch2a_motion"
+type: "Convolution"
+bottom: "res4b20_motion"
+top: "res4b21_branch2a_motion"
+param {
+  name: "res4b21_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b21_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b21_branch2a_motion"
+top: "res4b21_branch2a_motion"
+param {
+  name: "bn4b21_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b21_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b21_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b21_branch2a_motion"
+type: "Scale"
+bottom: "res4b21_branch2a_motion"
+top: "res4b21_branch2a_motion"
+param {
+  name: "scale4b21_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b21_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b21_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b21_branch2a_motion"
+top: "res4b21_branch2a_motion"
+}
+
+layer {
+name: "res4b21_branch2b_motion"
+type: "Convolution"
+bottom: "res4b21_branch2a_motion"
+top: "res4b21_branch2b_motion"
+param {
+  name: "res4b21_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b21_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b21_branch2b_motion"
+top: "res4b21_branch2b_motion"
+param {
+  name: "bn4b21_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b21_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b21_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b21_branch2b_motion"
+type: "Scale"
+bottom: "res4b21_branch2b_motion"
+top: "res4b21_branch2b_motion"
+param {
+  name: "scale4b21_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b21_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b21_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b21_branch2b_motion"
+top: "res4b21_branch2b_motion"
+}
+
+layer {
+name: "res4b21_branch2c_motion"
+type: "Convolution"
+bottom: "res4b21_branch2b_motion"
+top: "res4b21_branch2c_motion"
+param {
+  name: "res4b21_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b21_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b21_branch2c_motion"
+top: "res4b21_branch2c_motion"
+param {
+  name: "bn4b21_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b21_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b21_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b21_branch2c_motion"
+type: "Scale"
+bottom: "res4b21_branch2c_motion"
+top: "res4b21_branch2c_motion"
+param {
+  name: "scale4b21_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b21_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b21_motion"
+type: "Eltwise"
+bottom: "res4b20_motion"
+bottom: "res4b21_branch2c_motion"
+top: "res4b21_motion"
+}
+
+layer {
+name: "res4b21_relu_motion"
+type: "ReLU"
+bottom: "res4b21_motion"
+top: "res4b21_motion"
+}
+
+layer {
+name: "res4b22_branch2a_motion"
+type: "Convolution"
+bottom: "res4b21_motion"
+top: "res4b22_branch2a_motion"
+param {
+  name: "res4b22_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b22_branch2a_motion"
+type: "BatchNorm"
+bottom: "res4b22_branch2a_motion"
+top: "res4b22_branch2a_motion"
+param {
+  name: "bn4b22_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b22_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b22_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b22_branch2a_motion"
+type: "Scale"
+bottom: "res4b22_branch2a_motion"
+top: "res4b22_branch2a_motion"
+param {
+  name: "scale4b22_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b22_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b22_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res4b22_branch2a_motion"
+top: "res4b22_branch2a_motion"
+}
+
+layer {
+name: "res4b22_branch2b_motion"
+type: "Convolution"
+bottom: "res4b22_branch2a_motion"
+top: "res4b22_branch2b_motion"
+param {
+  name: "res4b22_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 256
+  bias_term: false
+  pad: 2
+  kernel_size: 3
+  stride: 1
+  dilation: 2
+}
+}
+
+layer {
+name: "bn4b22_branch2b_motion"
+type: "BatchNorm"
+bottom: "res4b22_branch2b_motion"
+top: "res4b22_branch2b_motion"
+param {
+  name: "bn4b22_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b22_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b22_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b22_branch2b_motion"
+type: "Scale"
+bottom: "res4b22_branch2b_motion"
+top: "res4b22_branch2b_motion"
+param {
+  name: "scale4b22_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b22_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b22_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res4b22_branch2b_motion"
+top: "res4b22_branch2b_motion"
+}
+
+layer {
+name: "res4b22_branch2c_motion"
+type: "Convolution"
+bottom: "res4b22_branch2b_motion"
+top: "res4b22_branch2c_motion"
+param {
+  name: "res4b22_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 1024
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn4b22_branch2c_motion"
+type: "BatchNorm"
+bottom: "res4b22_branch2c_motion"
+top: "res4b22_branch2c_motion"
+param {
+  name: "bn4b22_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b22_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn4b22_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale4b22_branch2c_motion"
+type: "Scale"
+bottom: "res4b22_branch2c_motion"
+top: "res4b22_branch2c_motion"
+param {
+  name: "scale4b22_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale4b22_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res4b22_motion"
+type: "Eltwise"
+bottom: "res4b21_motion"
+bottom: "res4b22_branch2c_motion"
+top: "res4b22_motion"
+}
+
+layer {
+name: "res4b22_relu_motion"
+type: "ReLU"
+bottom: "res4b22_motion"
+top: "res4b22_motion"
+}
+
+layer {
+name: "res5a_branch1_motion"
+type: "Convolution"
+bottom: "res4b22_motion"
+top: "res5a_branch1_motion"
+param {
+  name: "res5a_branch1_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 2048
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn5a_branch1_motion"
+type: "BatchNorm"
+bottom: "res5a_branch1_motion"
+top: "res5a_branch1_motion"
+param {
+  name: "bn5a_branch1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5a_branch1_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5a_branch1_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5a_branch1_motion"
+type: "Scale"
+bottom: "res5a_branch1_motion"
+top: "res5a_branch1_motion"
+param {
+  name: "scale5a_branch1_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5a_branch1_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5a_branch2a_motion"
+type: "Convolution"
+bottom: "res4b22_motion"
+top: "res5a_branch2a_motion"
+param {
+  name: "res5a_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn5a_branch2a_motion"
+type: "BatchNorm"
+bottom: "res5a_branch2a_motion"
+top: "res5a_branch2a_motion"
+param {
+  name: "bn5a_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5a_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5a_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5a_branch2a_motion"
+type: "Scale"
+bottom: "res5a_branch2a_motion"
+top: "res5a_branch2a_motion"
+param {
+  name: "scale5a_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5a_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5a_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res5a_branch2a_motion"
+top: "res5a_branch2a_motion"
+}
+
+layer {
+name: "res5a_branch2b_motion"
+type: "Convolution"
+bottom: "res5a_branch2a_motion"
+top: "res5a_branch2b_motion"
+param {
+  name: "res5a_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 4
+  kernel_size: 3
+  stride: 1
+  dilation: 4
+}
+}
+
+layer {
+name: "bn5a_branch2b_motion"
+type: "BatchNorm"
+bottom: "res5a_branch2b_motion"
+top: "res5a_branch2b_motion"
+param {
+  name: "bn5a_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5a_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5a_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5a_branch2b_motion"
+type: "Scale"
+bottom: "res5a_branch2b_motion"
+top: "res5a_branch2b_motion"
+param {
+  name: "scale5a_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5a_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5a_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res5a_branch2b_motion"
+top: "res5a_branch2b_motion"
+}
+
+layer {
+name: "res5a_branch2c_motion"
+type: "Convolution"
+bottom: "res5a_branch2b_motion"
+top: "res5a_branch2c_motion"
+param {
+  name: "res5a_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 2048
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn5a_branch2c_motion"
+type: "BatchNorm"
+bottom: "res5a_branch2c_motion"
+top: "res5a_branch2c_motion"
+param {
+  name: "bn5a_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5a_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5a_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5a_branch2c_motion"
+type: "Scale"
+bottom: "res5a_branch2c_motion"
+top: "res5a_branch2c_motion"
+param {
+  name: "scale5a_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5a_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5a_motion"
+type: "Eltwise"
+bottom: "res5a_branch1_motion"
+bottom: "res5a_branch2c_motion"
+top: "res5a_motion"
+}
+
+layer {
+name: "res5a_relu_motion"
+type: "ReLU"
+bottom: "res5a_motion"
+top: "res5a_motion"
+}
+
+layer {
+name: "res5b_branch2a_motion"
+type: "Convolution"
+bottom: "res5a_motion"
+top: "res5b_branch2a_motion"
+param {
+  name: "res5b_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn5b_branch2a_motion"
+type: "BatchNorm"
+bottom: "res5b_branch2a_motion"
+top: "res5b_branch2a_motion"
+param {
+  name: "bn5b_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5b_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5b_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5b_branch2a_motion"
+type: "Scale"
+bottom: "res5b_branch2a_motion"
+top: "res5b_branch2a_motion"
+param {
+  name: "scale5b_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5b_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5b_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res5b_branch2a_motion"
+top: "res5b_branch2a_motion"
+}
+
+layer {
+name: "res5b_branch2b_motion"
+type: "Convolution"
+bottom: "res5b_branch2a_motion"
+top: "res5b_branch2b_motion"
+param {
+  name: "res5b_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 4
+  kernel_size: 3
+  stride: 1
+  dilation: 4
+}
+}
+
+layer {
+name: "bn5b_branch2b_motion"
+type: "BatchNorm"
+bottom: "res5b_branch2b_motion"
+top: "res5b_branch2b_motion"
+param {
+  name: "bn5b_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5b_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5b_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5b_branch2b_motion"
+type: "Scale"
+bottom: "res5b_branch2b_motion"
+top: "res5b_branch2b_motion"
+param {
+  name: "scale5b_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5b_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5b_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res5b_branch2b_motion"
+top: "res5b_branch2b_motion"
+}
+
+layer {
+name: "res5b_branch2c_motion"
+type: "Convolution"
+bottom: "res5b_branch2b_motion"
+top: "res5b_branch2c_motion"
+param {
+  name: "res5b_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 2048
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn5b_branch2c_motion"
+type: "BatchNorm"
+bottom: "res5b_branch2c_motion"
+top: "res5b_branch2c_motion"
+param {
+  name: "bn5b_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5b_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5b_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5b_branch2c_motion"
+type: "Scale"
+bottom: "res5b_branch2c_motion"
+top: "res5b_branch2c_motion"
+param {
+  name: "scale5b_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5b_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5b_motion"
+type: "Eltwise"
+bottom: "res5a_motion"
+bottom: "res5b_branch2c_motion"
+top: "res5b_motion"
+}
+
+layer {
+name: "res5b_relu_motion"
+type: "ReLU"
+bottom: "res5b_motion"
+top: "res5b_motion"
+}
+
+layer {
+name: "res5c_branch2a_motion"
+type: "Convolution"
+bottom: "res5b_motion"
+top: "res5c_branch2a_motion"
+param {
+  name: "res5c_branch2a_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn5c_branch2a_motion"
+type: "BatchNorm"
+bottom: "res5c_branch2a_motion"
+top: "res5c_branch2a_motion"
+param {
+  name: "bn5c_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5c_branch2a_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5c_branch2a_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5c_branch2a_motion"
+type: "Scale"
+bottom: "res5c_branch2a_motion"
+top: "res5c_branch2a_motion"
+param {
+  name: "scale5c_branch2a_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5c_branch2a_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5c_branch2a_relu_motion"
+type: "ReLU"
+bottom: "res5c_branch2a_motion"
+top: "res5c_branch2a_motion"
+}
+
+layer {
+name: "res5c_branch2b_motion"
+type: "Convolution"
+bottom: "res5c_branch2a_motion"
+top: "res5c_branch2b_motion"
+param {
+  name: "res5c_branch2b_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 512
+  bias_term: false
+  pad: 4
+  kernel_size: 3
+  stride: 1
+  dilation: 4
+}
+}
+
+layer {
+name: "bn5c_branch2b_motion"
+type: "BatchNorm"
+bottom: "res5c_branch2b_motion"
+top: "res5c_branch2b_motion"
+param {
+  name: "bn5c_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5c_branch2b_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5c_branch2b_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5c_branch2b_motion"
+type: "Scale"
+bottom: "res5c_branch2b_motion"
+top: "res5c_branch2b_motion"
+param {
+  name: "scale5c_branch2b_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5c_branch2b_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5c_branch2b_relu_motion"
+type: "ReLU"
+bottom: "res5c_branch2b_motion"
+top: "res5c_branch2b_motion"
+}
+
+layer {
+name: "res5c_branch2c_motion"
+type: "Convolution"
+bottom: "res5c_branch2b_motion"
+top: "res5c_branch2c_motion"
+param {
+  name: "res5c_branch2c_0_motion"
+  lr_mult: 1.0
+  decay_mult: 1.0
+}
+convolution_param {
+  num_output: 2048
+  bias_term: false
+  pad: 0
+  kernel_size: 1
+  stride: 1
+}
+}
+
+layer {
+name: "bn5c_branch2c_motion"
+type: "BatchNorm"
+bottom: "res5c_branch2c_motion"
+top: "res5c_branch2c_motion"
+param {
+  name: "bn5c_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5c_branch2c_1_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "bn5c_branch2c_2_motion"
+  lr_mult: 0.0
+}
+batch_norm_param {
+  use_global_stats: true
+}
+}
+
+layer {
+name: "scale5c_branch2c_motion"
+type: "Scale"
+bottom: "res5c_branch2c_motion"
+top: "res5c_branch2c_motion"
+param {
+  name: "scale5c_branch2c_0_motion"
+  lr_mult: 0.0
+}
+param {
+  name: "scale5c_branch2c_1_motion"
+  lr_mult: 0.0
+}
+scale_param {
+  bias_term: true
+}
+}
+
+layer {
+name: "res5c_motion"
+type: "Eltwise"
+bottom: "res5b_motion"
+bottom: "res5c_branch2c_motion"
+top: "res5c_motion"
+}
+
+layer {
+name: "res5c_relu_motion"
+type: "ReLU"
+bottom: "res5c_motion"
+top: "res5c_motion"
+}
+
+layer {
+name: "fc1_binary_seg_flow_c0_motion"
+type: "Convolution"
+bottom: "res5c_motion"
+top: "fc1_binary_seg_flow_c0_motion"
+param {
+  name: "fc1_binary_seg_flow_c0_w_motion"
+}
+param {
+  name: "fc1_binary_seg_flow_c0_b_motion"
+}
+convolution_param {
+  num_output: 2
+  pad: 6
+  kernel_size: 3
+  dilation: 6
+}
+}
+
+layer {
+name: "fc1_binary_seg_flow_c1_motion"
+type: "Convolution"
+bottom: "res5c_motion"
+top: "fc1_binary_seg_flow_c1_motion"
+param {
+  name: "fc1_binary_seg_flow_c1_w_motion"
+}
+param {
+  name: "fc1_binary_seg_flow_c1_b_motion"
+}
+convolution_param {
+  num_output: 2
+  pad: 12
+  kernel_size: 3
+  dilation: 12
+}
+}
+
+layer {
+name: "fc1_binary_seg_flow_c2_motion"
+type: "Convolution"
+bottom: "res5c_motion"
+top: "fc1_binary_seg_flow_c2_motion"
+param {
+  name: "fc1_binary_seg_flow_c2_w_motion"
+}
+param {
+  name: "fc1_binary_seg_flow_c2_b_motion"
+}
+convolution_param {
+  num_output: 2
+  pad: 18
+  kernel_size: 3
+  dilation: 18
+}
+}
+
+layer {
+name: "fc1_binary_seg_flow_c3_motion"
+type: "Convolution"
+bottom: "res5c_motion"
+top: "fc1_binary_seg_flow_c3_motion"
+param {
+  name: "fc1_binary_seg_flow_c3_w_motion"
+}
+param {
+  name: "fc1_binary_seg_flow_c3_b_motion"
+}
+convolution_param {
+  num_output: 2
+  pad: 24
+  kernel_size: 3
+  dilation: 24
+}
+}
+
+layer {
+name: "fc1_binary_seg_flow_motion"
+type: "Eltwise"
+bottom: "fc1_binary_seg_flow_c0_motion"
+bottom: "fc1_binary_seg_flow_c1_motion"
+bottom: "fc1_binary_seg_flow_c2_motion"
+bottom: "fc1_binary_seg_flow_c3_motion"
+top: "fc1_binary_seg_flow_motion"
+eltwise_param {
+  operation: SUM
+}
+}
+
+layer {
+name: "fc1_interp_motion"
+type: "Interp"
+bottom: "fc1_binary_seg_flow_motion"
+top: "fc1_interp_motion"
+interp_param {
+  zoom_factor: 8
+}
+}
